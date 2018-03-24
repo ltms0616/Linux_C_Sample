@@ -1,0 +1,13 @@
+
+
+git clone https://ltms0616@github.com/ltms0616/Linux_C_Sample.git
+
+git clone git@github.com:ltms0616/Linux_C_Sample.git  (if ssh connect is workable)
+
+git commit -am "message for this commit"
+
+git push  #push the file to remote repo
+
+git pull  #pull the file from remote repo
+
+

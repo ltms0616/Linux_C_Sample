@@ -13,12 +13,13 @@ void main(int argc, char** argv)
     int rc=0;
     char *p;
     char *p1;    
-    int len=20;
+    int len=100;
     FILE *pfile;
     char text[20];    
 
     p = malloc(len*sizeof(char));
     p1 = malloc(len*sizeof(char));
+    pfile = fopen("poem.txt", "r");
 #if 0
     printf("*****scanf input*****\n");
     printf("scan wihtout space\n");    
@@ -34,14 +35,16 @@ void main(int argc, char** argv)
     memset(p, 0, len*sizeof(char));
     rc = fscanf(stdin, "%s", p);
     printf("the input is %s\n", p);
-#endif
-    pfile = fopen("poem.txt", "r");
+
+#endif    
+    fscanf(pfile, "%s", p);
+    printf("Read from poem.txt as below:\n");
+    printf("%s\n", p);
     
     fgets(p , 20, pfile);
     printf("%s", p);
     rc = sscanf(p, "%s", p1);
     printf("%s\n", p1);    
-
 
           
     free(p1);
