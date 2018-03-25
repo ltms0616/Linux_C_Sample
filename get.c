@@ -27,12 +27,12 @@ void main(int argc, char** argv)
     int rc=0;
     int c=0;
     int shift=0;
+    int len=0;
 
     pfile = fopen("poem.txt", "r");
     if(pfile == NULL){
         printf("open file fail!");
-CP2018030619428
-    
+    }    
 #if 0
     printf("fgets example\n");
     if(fgets(string, 200, pfile)){
@@ -40,11 +40,12 @@ CP2018030619428
     }else{
 	printf("fgets fail!\n");
     }
-    
+
     printf("fgets from stdin\n");
     fgets(string, 5, stdin);
     printf("the input is %s\n", string);
-
+#endif
+#if 0
     /*rc = fseek(pfile, 0, SEEK_SET);*/
     rewind(pfile);
     printf("current file pointer position = %ld\n", ftell(pfile));  
@@ -66,15 +67,40 @@ CP2018030619428
     putchar(rc);
     printf("\n");
 #endif
-    str = malloc(500*sizeof(char));
-    memset(str, '0', 500*sizeof(char));  
+
+#if 0
+    str = malloc(700*sizeof(char));
+    //memset(str, '0', 700*sizeof(char));  
     printf("Read from Poem.txt\n");  
-    while((rc= fgetc(pfile))!= EOF){
+    while(!feof(pfile)){
+          fgets(str+strlen(str), 100, pfile);
+          
+    }
+    printf("%s", str);
+
+#endif
+#if 0
+    memset(str, 0, 700*sizeof(char));
+    while((rc = fgetc(pfile))!= EOF){
         c=sprintf(str, "%c", rc);
         str+=c;
         shift+=c;
+    } 
+    //printf("string len %d\n", shift);
+    printf("%s", str-strlen(str));    
+#endif
+#if 0
+    while(!feof(pfile)){
+        rc=getc(pfile);
+        putchar(rc);
     }
-    
-    printf("%s", str-shift);    
+#endif
+    fseek(pfile, 0, SEEK_END);    
+    rc=ftell(pfile);
+    printf("the poem.txt size %d byte", rc);
+    rewind(pfile);
+
+    free(str);
+    fclose(pfile);
     return;
 }
