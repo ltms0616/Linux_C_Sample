@@ -12,10 +12,7 @@
 
    int getchar(void)   # get one character from stdin , equivalent to getc(stdin); 
    int getc(FILE *stream) # equivalent to fgetc() except that it may be implemented as a macro which evaluate stream more than once   
-   gets
-
-   putchar
-   putc
+   char *gets(char *s)   #read a line from stdin into the buffer pointed by s until newline or EOF. NEVER USE THIS FUNTION!!! 
    
 */
 
@@ -34,6 +31,7 @@ void main(int argc, char** argv)
         printf("open file fail!");
     }    
 #if 0
+    /* fget example, read from file and stdin(with space is acceptable)*/
     printf("fgets example\n");
     if(fgets(string, 200, pfile)){
 	puts(string);
@@ -46,6 +44,7 @@ void main(int argc, char** argv)
     printf("the input is %s\n", string);
 #endif
 #if 0
+    /* rewind the file position and then try fgetc example from file and stdin */
     /*rc = fseek(pfile, 0, SEEK_SET);*/
     rewind(pfile);
     printf("current file pointer position = %ld\n", ftell(pfile));  
@@ -69,6 +68,7 @@ void main(int argc, char** argv)
 #endif
 
 #if 0
+    /* store whole file into string by fgets */
     str = malloc(700*sizeof(char));
     //memset(str, '0', 700*sizeof(char));  
     printf("Read from Poem.txt\n");  
@@ -80,6 +80,7 @@ void main(int argc, char** argv)
 
 #endif
 #if 0
+    /* store the whole file into string by fgetc */
     memset(str, 0, 700*sizeof(char));
     while((rc = fgetc(pfile))!= EOF){
         c=sprintf(str, "%c", rc);
@@ -90,16 +91,19 @@ void main(int argc, char** argv)
     printf("%s", str-strlen(str));    
 #endif
 #if 0
+    /* put whole file to stdout */
     while(!feof(pfile)){
         rc=getc(pfile);
         putchar(rc);
     }
 #endif
+#if 0
+    /* check the file size*/
     fseek(pfile, 0, SEEK_END);    
     rc=ftell(pfile);
     printf("the poem.txt size %d byte", rc);
     rewind(pfile);
-
+#endif
     free(str);
     fclose(pfile);
     return;
