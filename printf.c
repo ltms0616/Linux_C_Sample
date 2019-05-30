@@ -41,7 +41,7 @@ void main(int argc, char **argv)
     fgets(str, len, stdin);
     fprintf(pfile, "%s", str);
 #endif
-#if 1
+#if 0
     str = malloc(200*sizeof(char));
     name = malloc(20*sizeof(char));
     printf("Enter the name:");
@@ -50,7 +50,11 @@ void main(int argc, char **argv)
     scanf("%d", &age);
     sprintf(str, "Name: %s\nAge: %d\n", name, age);
     printf("%s", str);
-#endif  
+#endif
+    str =(char*)malloc(sizeof(char)*200);
+    name = (char*)malloc(sizeof(char)*10);
+    fgets(str, 
+  
     return;
 
 }

@@ -10,10 +10,10 @@ void main(int argc, char** argv)
     int fscanf(FILE *stream, const char* format, ...)  ==> read input from the point stream
 */
 
-    int rc=0;
+    int rc=0,i=0;
     char *p;
     char *p1;    
-    int len=100;
+    int len=200;
     FILE *pfile;
     char text[20];    
 
@@ -38,12 +38,15 @@ void main(int argc, char** argv)
 
 #endif    
     fscanf(pfile, "%s", p);
-    printf("Read from poem.txt as below:\n");
-    printf("%s\n", p);
-    
-    fgets(p , 20, pfile);
+    printf("functions read from poem.txt as below\n");
+    printf("\nfscanf:\n");
+    printf("%s", p);
+   
+    fgets(p , 200, pfile);
+    printf("\nfgets:\n");
     printf("%s", p);
     rc = sscanf(p, "%s", p1);
+    printf("\nsscanf:\n");
     printf("%s\n", p1);    
 
           

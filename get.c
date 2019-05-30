@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
-
+#include <sys/stat.h>
 /* char fgets(char *s, int size, FILE *stream)  #read in at the most line less than size. Reading stop after EOF or newline.
    int fseek(FILE *stream, long offset, int whence)   #whence= SEEK_SET ==> offset is related to start of file
 								  SEEK_CUR ==> offset is related to current position
@@ -16,7 +16,7 @@
    
 */
 
-void main(int argc, char** argv)
+int main(int argc, char** argv)
 {
     FILE *pfile;
     char string[200];
@@ -25,24 +25,43 @@ void main(int argc, char** argv)
     int c=0;
     int shift=0;
     int len=0;
+    int sz;
+    struct stat st;    
 
     pfile = fopen("poem.txt", "r");
     if(pfile == NULL){
         printf("open file fail!");
-    }    
-#if 0
+        return -1;
+    }
+
+#if 1
+    fseek(pfile, 0L, SEEK_END);
+    sz=ftell(pfile);
+    rewind(pfile); 
+#else   
+    stat("poem.txt", &st);
+    sz = (int)st.st_size;
+#endif
+
+#if 0 
     /* fget example, read from file and stdin(with space is acceptable)*/
     printf("fgets example\n");
+
     if(fgets(string, 200, pfile)){
 	puts(string);
     }else{
 	printf("fgets fail!\n");
     }
-
+#else
     printf("fgets from stdin\n");
-    fgets(string, 5, stdin);
-    printf("the input is %s\n", string);
-#endif
+    fgets(string, 60, stdin);
+    if(string[0]=='\n'){
+        printf("you press enter\n");
+    }else{
+        printf("you input %s\n", string);
+    }
+#endif 
+
 #if 0
     /* rewind the file position and then try fgetc example from file and stdin */
     /*rc = fseek(pfile, 0, SEEK_SET);*/
@@ -104,7 +123,6 @@ void main(int argc, char** argv)
     printf("the poem.txt size %d byte", rc);
     rewind(pfile);
 #endif
-    free(str);
     fclose(pfile);
     return;
 }
